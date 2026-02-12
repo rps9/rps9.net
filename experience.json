@@ -1,0 +1,72 @@
+{
+    "education": {
+        "school": "Boston University",
+        "degree": "Bachelor of Science in Computer Engineering",
+        "expected_grad": "May 2026",
+        "gpa": "3.65"
+    },
+    "jobs": [
+        {
+            "company": "Mass General Brigham",
+            "role": "Integration Intern",
+            "tasks": "Collaborated with the Software Integration team, handling dozens of API-related requests a week and helping evaluate API selections for internal projects. Developed an automated API regression and baseline testing workflow in ReadyAPI and TestEngine, parameterizing test cases from SQL and validating responses; shipped a reusable XML suite. Created dashboards within Servicenow that displayed information on dozens of current projects and hundreds of tickets in a way that was easily readable."
+        },
+        {
+            "company": "Superior Packaging and Finishing",
+            "role": "Software Developer",
+            "tasks": "Created multiple online storefronts for clients now used to sell hundreds of unique products. Constructed middleware, internal REST APIs, and automation scripts to integrate client storefronts with internal workflows; supervised Azure Virtual Machines hosting these services. Developed a Python app using APIs to automate new storefront creation, reducing average setup time from one week to less than a day. Updated SSL certificates on our VMs using both Nginx and Apache. Implemented TLS certificate inspection in Python (socket + cryptography) and automated Gmail SMTP alerts using env-configured domain lists."
+        },
+        {
+            "company": "Boston University Engineering IT",
+            "role": "IT Consultant",
+            "tasks": "Imaged/configured Windows and Linux lab machines; resolved network and IAM issues (DNS/DHCP, 802.1X, VPN, MFA/SSO) and wrote guides that reduced repeat tickets."
+        }
+    ],
+    "projects": [
+        {
+            "name": "Federated Learning in ChRIS",
+            "end_product": "Built two Dockerized ChRIS plugins for federated learning in medical imaging: an orchestration plugin and a hospital-site execution plugin. Deployed on isolated multi-node setups via a bastion host and reverse SSH; validated end-to-end workflows on the New England Research Cluster while keeping data local. Packaged Flower SuperLink/SuperNode into ChRIS plugins; SuperLink coordinated rounds over gRPC, bundled the server app, and wrote run summaries/weights to /outgoing, while SuperNodes emitted client_metrics.json. Built miniChRIS pipelines with a reverse-SSH bastion option and a single-machine Docker-network fallback."
+        },
+        {
+            "name": "Stock Tracking Website",
+            "end_product": "Constructed an event-driven microservice architecture: streamed trades from Finnhub WebSockets, published to AWS SQS, consumed by an analytics service to power real-time stock metrics. Shipped REST APIs with thread-safe in-memory storage, caching, and a metrics/observability endpoint. Operationalized stack with CI/CD and a testing suite using GitHub Actions, certifying end-to-end behavior. Implemented a local queue service backed by a ConcurrentLinkedQueue, plus a MockFinnhub client and a serviceTest.sh harness for deterministic end-to-end tests. Built a React + TypeScript web UI with Vite, React Router, MSW mocks, and Vitest unit tests; standardized Java services with Gradle, JUnit, Mockito, PMD, Spotless, Java-WebSocket, JSON-simple, and TinyLog."
+        },
+        {
+            "name": "Personal Website",
+            "end_product": "Built a full-stack app with JWT auth, password hashing, a REST API (FastAPI) for sign-up, email verification, and a normalized schema (users/roles/tokens) with constraints and indexes. Had different user roles in the website. Containerized the API with Docker for consistant deployment. Added role-based access control (user/admin/owner), email verification links with token hashing and expiry, and SMTP-based email delivery. Integrated Spotify search and OpenAI-powered song recommendations; used psycopg connection pooling, CORS allowlists, and Docker Compose for local dev. Deployed on Render with a Neon Postgres database."
+        },
+        {
+            "name": "HUDini Translation Glasses",
+            "end_product": "Built the iOS app for my senior design project which was translation glasses. The glasses take in speech, translate it, then display it on the glasses. We did this by sending the audio over to the users phone via bluetooth, used the Apple speech framework to natively transcribe the sentence and Apple translation framework to translate it. Then the translated sentence is sent back to the glasses via bluetooth and displayed for the user. Developed the app in Swift. Created a testing module for the translation, transcription, and bluetooth functions of the app. Created a custom API using fastAPI and connected it to a SQL database for storing users and user data. Implemented SwiftUI views and CoreBluetooth central flows, with AVAudioEngine + SFSpeechRecognizer for live transcription. Added translation service abstraction with Apple Translation and LibreTranslate fallback, plus a QA harness that scores translations using COMET via Hugging Face endpoints."
+        },
+        {
+            "name": "Point-to-Point IR Communication Device",
+            "end_product": "Engineered a high-speed infrared communication system enabling reliable point-to-point data transmission. Designed and implemented low-level C firmware to efficiently generate, transmit, and decode IR signals into ASCII characters with minimal latency; won first place in peer-voted competition. Ran the code on the Arduino UNO. Displayed message on LCD display. Added PS/2 keyboard input, NEC IR transmission via IRremote, I2C LCD output, and a servo-driven control mode for analog joystick input."
+        },
+        {
+            "name": "Android Game",
+            "end_product": "Created game in Android studio with custom physics, hitboxes and animations. Used the phones sensors to allow for interactive gameplay (turning the phone changes the direction the character will jump in). Programmed in java."
+        },
+        {
+            "name": "Card Vulnerabilities (MIFARE Classic)",
+            "end_product": "Analyzed MIFARE Classic security weaknesses (Crypto-1, no hidden blocks) and built three practical mitigations: counter-based anti-clone checks, clock-in/clock-out state enforcement, and dual-tag authentication. Implemented Python tooling to read/write card blocks, maintain a CSV-backed state store, and flag cloned cards during live taps; produced a written report and presentation."
+        },
+        {
+            "name": "Pintos Operating System Labs",
+            "end_product": "Implemented core OS features in Pintos across threads, user programs, and virtual memory. Built priority scheduling and synchronization fixes (semaphores/locks/conds), timer/alarm handling, and priority donation updates; added user-level system calls with safe user-buffer copying plus process management and file operations. Implemented VM components including a supplemental page table, frame table, swap subsystem, page-fault handling, clock-style eviction, and page pinning for syscall safety."
+        },
+        {
+            "name": "MATLAB Analysis of Crime Rates",
+            "end_product": "Lead a team of three engineers to conduct research on the effects of poverty on crime rates. Pulled crime and poverty rate data from over 3,000 counties in the US and used machine learning in MATLAB to find the correlation. Linear regression used. Got the r value from it."
+        }
+    ],
+    "courses": [
+        "Operating Systems", "Cloud Computing", "Software Engineering", "Algorithms", "Computer Organization", "Cybersecurity"
+    ],
+    "coding_languages": [
+        "Python", "Java", "SQL", "C", "C++", "CSS", "HTML", "JavaScript", "TypeScript", "MATLAB", "Swift"
+    ],
+    "tools": [
+        "React", "FastAPI", "PostgreSQL", "Docker", "Docker Compose", "AWS", "GitHub Actions", "Linux", "Postman", "ChRIS", "Flower", "Gradle", "JUnit", "Mockito", "PMD", "Spotless", "TinyLog", "Vite", "React Router", "MSW", "Vitest", "Tailwind CSS", "Uvicorn", "SwiftUI", "CoreBluetooth", "Apple Speech", "Apple Translation", "LibreTranslate", "OpenAI API", "Spotify API", "Neon", "Render", "SMTP", "nfcpy"
+    ]
+}

@@ -1,5 +1,9 @@
 import Header from '../components/Header';
 import Slideshow from '../components/Slideshow'
+import lakeBiwaImage from '../assets/lake_biwa.jpg';
+import quecheeImage from '../assets/quechee.jpg';
+import lakeWinniImage from '../assets/lake_winni.jpg';
+import fushimiImage from '../assets/fushimi.jpg';
 
 export default function AboutMe() {
     return (
@@ -20,11 +24,10 @@ export default function AboutMe() {
             <div className="w-full">
                 <Slideshow
                     slides={[
-                        { src: "https://i.imgur.com/8p70vPZ.jpeg", caption: "Me at Lake Biwa" },
-                        { src: "https://i.imgur.com/eSuEPZ9.jpeg", caption: "Lake Biwa Boats" },
-                        { src: "https://i.imgur.com/yOcQJrN.jpeg", caption: "Quechee, Vermont" },
-                        { src: "https://i.imgur.com/HHqxXOL.jpeg", caption: "Lake Winnipesaukee" },
-                        { src: "https://i.imgur.com/YYW6mQG.jpeg", caption: "Fushimi Inari Shrine" }
+                        { src: lakeBiwaImage, caption: "Lake Biwa Boats" },
+                        { src: quecheeImage, caption: "Quechee, Vermont" },
+                        { src: lakeWinniImage, caption: "Lake Winnipesaukee" },
+                        { src: fushimiImage, caption: "Fushimi Inari Shrine" }
                     ]}
                 />
             </div>

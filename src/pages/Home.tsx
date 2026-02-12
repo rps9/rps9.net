@@ -1,7 +1,15 @@
 import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
 import ExperienceCard from '../components/ExperienceCard';
-import SkillBadge from '../components/SkillBadge';
 import Header from '../components/Header';
+import federatedDiagramImage from '../assets/federated_diagram.jpg';
+import stocksImage from '../assets/stocks.jpg';
+import hudiniImage from '../assets/hudini.jpg';
+import p2pDeviceImage from '../assets/p2p_device.jpg';
+import osImage from '../assets/os.jpg';
+import mgbImage from '../assets/mgb.jpg';
+import superiorImage from '../assets/superior.jpg';
+import buImage from '../assets/bu.jpg';
+import websiteImage from '../assets/website.jpg';
 
 function Home() {
 
@@ -21,7 +29,7 @@ function Home() {
             <a href="https://github.com/rps9" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
               <Github size={24} />
             </a>
-            <a href="https://www.linkedin.com/in/ryan-smith-690337244/" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
+            <a href="https://www.linkedin.com/in/rps9/" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
               <Linkedin size={24} />
             </a>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ryans6892@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
@@ -43,22 +51,22 @@ function Home() {
           <h2 className="text-4xl font-bold text-center mb-12 text-white">My Experience</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <ExperienceCard
-              title="Integrations Intern At MGB"
-              description="Worked on troubleshooting and testing production APIs. Created tests in TestEngine, monitored APIs in Splunk, and used EPIC/FHIR APIs."
-              image="https://logowik.com/content/uploads/images/mass-general-brigham3030.jpg"
-              tags={['EPIC', 'FHIR', 'APIs', 'TestEngine', 'Python']}
+              title="Integration Intern at Mass General Brigham"
+              description="Collaborated with the Software Integration team, handled API-related requests, and built automated API regression and baseline testing workflows in ReadyAPI/TestEngine with SQL-parameterized cases and reusable XML suites."
+              image={mgbImage}
+              tags={['APIs', 'ReadyAPI', 'TestEngine', 'SQL', 'ServiceNow']}
             />
             <ExperienceCard
-              title="Software Developer at Superior Packaging"
-              description="Created multiple storefronts that support B2B operations. Developed multiple automaiton tools."
-              image="https://media.licdn.com/dms/image/v2/D4E0BAQGPBvK7ZLEljA/company-logo_200_200/B4EZbusUmTHYAI-/0/1747761318593/superior_packaging_and_finishing_logo?e=2147483647&v=beta&t=oIdwRZ-ffjBJ94w3m09upWl1hsJ5446QG1q7OnrEHhQ"
-              tags={['Python', 'HTML', 'CSS', 'JavaScript', 'Postman']}
+              title="Software Developer at Superior Packaging and Finishing"
+              description="Built client storefronts, internal REST APIs, and automation scripts. Managed Azure VMs and developed Python tooling that reduced new storefront setup time from one week to less than one day."
+              image={superiorImage}
+              tags={['Python', 'REST APIs', 'Azure', 'Nginx', 'Apache']}
             />
             <ExperienceCard
-              title="IT Consultant"
-              description="Worked in a systems administrator role where I helped set up VMs, computers, and other software."
-              image="https://images.credly.com/images/ba6476c9-796d-486a-8c33-80c0f5cc44e4/Boston-University-Logo.png"
-              tags={['Linux', 'Networking', 'IT']}
+              title="IT Consultant at Boston University Engineering IT"
+              description="Imaged and configured Windows/Linux lab machines, resolved network and IAM issues (DNS/DHCP, 802.1X, VPN, MFA/SSO), and wrote internal guides that reduced repeat support tickets."
+              image={buImage}
+              tags={['Linux', 'Windows', 'Networking', 'VPN', 'IAM']}
             />
           </div>
         </div>
@@ -70,62 +78,51 @@ function Home() {
           <h2 className="text-4xl font-bold text-center mb-12 text-white">My Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <ExperienceCard
-              title="Automated Web Dev App"
-              description="Created an internal python application that streamlined the process of creating a website in Infigo, utilizing multiple APIs and a session based system."
-              image="https://www.elegantthemes.com/blog/wp-content/uploads/2018/12/top11.png"
-              tags={['Python', 'HTML', 'CSS', 'JavaScript']}
+              title="Federated Learning in ChRIS"
+              description="Built Dockerized ChRIS plugins for federated medical imaging workflows, including orchestration and hospital-site execution, with reverse-SSH and single-machine deployment options."
+              image={federatedDiagramImage}
+              tags={['Docker', 'ChRIS', 'Flower', 'gRPC']}
+              sourceType="open"
+              sourceUrl="https://github.com/EC528-Fall-2025/FedMed-ChRIS"
             />
             <ExperienceCard
-              title="Flight Tracker"
-              description="Created a flight tracker that scraped the web every day to find the cheapest flight to a given area in a given timeframe, then sends a text notification alerting the user when they should buy it."
-              image="https://s.marketwatch.com/public/resources/images/MW-HE536_airpla_ZH_20190225131547.jpg"
-              tags={['Python']}
+              title="Stock Tracking Website"
+              description="Constructed an event-driven architecture using Finnhub WebSockets, AWS SQS, and analytics services to power real-time stock metrics, with CI/CD and full test coverage."
+              image={stocksImage}
+              tags={['React', 'TypeScript', 'Java', 'AWS SQS', 'CI/CD']}
+              sourceType="closed"
             />
             <ExperienceCard
-              title="Darts Point Tracker"
-              description="Created a web app that allows users to play darts and easily keep track of points."
-              image="https://upload.wikimedia.org/wikipedia/commons/f/fb/Darts_in_a_dartboard.jpg"
-              tags={['HTML', 'JavaScript', 'CSS']}
-              to="/darts"
+              title="Personal Website"
+              description="Built a full-stack app with JWT auth, role-based access control, FastAPI REST services, email verification, and OpenAI/Spotify integrations; deployed with Docker, Render, and Neon Postgres."
+              image={websiteImage}
+              tags={['FastAPI', 'PostgreSQL', 'Docker', 'OpenAI API', 'Spotify API']}
+              sourceType="open"
+              sourceUrl="https://github.com/rps9/rps9.github.io"
+            />
+            <ExperienceCard
+              title="HUDini Translation Glasses"
+              description="Developed the iOS app in Swift/SwiftUI for translation glasses, including Bluetooth communication, live transcription, translation pipelines, and a FastAPI + SQL backend."
+              image={hudiniImage}
+              tags={['Swift', 'SwiftUI', 'CoreBluetooth', 'FastAPI', 'SQL']}
+              sourceType="closed"
+            />
+            <ExperienceCard
+              title="Point-to-Point IR Communication Device"
+              description="Engineered a high-speed infrared communication system in C on Arduino UNO with PS/2 keyboard input, NEC IR transmission, I2C LCD output, and servo control mode."
+              image={p2pDeviceImage}
+              tags={['C', 'Arduino', 'IRremote', 'I2C', 'Embedded']}
+              sourceType="open"
+              sourceUrl="https://github.com/rps9/point-to-point-IR"
+            />
+            <ExperienceCard
+              title="Pintos Operating System Labs"
+              description="Implemented scheduling, synchronization, syscall/process handling, and virtual memory subsystems including supplemental page tables, frame/swap management, and page-fault handling."
+              image={osImage}
+              tags={['C', 'Operating Systems', 'Virtual Memory', 'Concurrency']}
+              sourceType="closed"
             />
           </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section className="py-20 px-4 bg-gray-900">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">Skills</h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            <SkillBadge name="TypeScript"/>
-            <SkillBadge name="Python"/>
-            <SkillBadge name="SQL"/>
-            <SkillBadge name="C++"/>
-            <SkillBadge name="Linux"/>
-            <SkillBadge name="Networking"/>
-            <SkillBadge name="HTML, CSS, JS"/>
-            <SkillBadge name="MatLab"/>
-            <SkillBadge name="PyTorch"/>
-            <SkillBadge name="Excel"/>
-            <SkillBadge name="React"/>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 px-4 bg-gray-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8 text-white">Let's Connect</h2>
-          <p className="text-xl text-gray-300 mb-8">
-            I'm always open to any discussion and opportunities.
-          </p>
-          <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=ryans6892@gmail.com" target="_blank"
-            className="inline-flex items-center gap-2 bg-blue-500 text-white px-8 py-3 rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            <Mail size={20} />
-            Get in Touch
-          </a>
         </div>
       </section>
 
