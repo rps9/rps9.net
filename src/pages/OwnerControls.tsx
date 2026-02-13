@@ -3,7 +3,7 @@ import { AlertCircle, CheckCircle2, ShieldCheck } from "lucide-react";
 import { authHeader } from "../utils/auth";
 import Header from '../components/Header';
 
-const API_BASE = "https://ryan-website-api.onrender.com";
+const API_BASE = "https://rps9.net";
 
 export default function OwnerControls() {
 	const [username, setUsername] = useState("");

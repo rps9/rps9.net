@@ -7,7 +7,7 @@ import { Loader2, AlertTriangle, Music2 } from "lucide-react";
 type Rec = { title: string; artist: string; why: string };
 
 export default function SongRecommendations() {
-	const API_BASE = "https://ryan-website-api.onrender.com"; 
+	const API_BASE = "https://rps9.net";
 
 	const [selected, setSelected] = useState<{ name: string; artists: string; image?: string }[]>([]);
 	const [instructions, setInstructions] = useState("");

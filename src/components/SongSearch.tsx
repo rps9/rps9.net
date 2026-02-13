@@ -5,7 +5,7 @@ import { authHeader } from "../utils/auth";
 type Track = { name: string; artists: string; image?: string };
 
 export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) => void }) {
-	const API_BASE = "https://ryan-website-api.onrender.com";
+	const API_BASE = "https://rps9.net";
 
 	const [q, setQ] = useState("");
 	const [hits, setHits] = useState<Track[]>([]);

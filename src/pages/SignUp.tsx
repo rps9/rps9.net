@@ -4,7 +4,7 @@ import { Eye, EyeOff, LogIn, AlertCircle, CheckCircle2, Loader2 } from "lucide-r
 import { setAuth } from "../utils/auth";
 
 export default function SignUp() {
-    const API_BASE = "https://ryan-website-api.onrender.com";
+    const API_BASE = "https://rps9.net";
 
     const USERNAME_RE = /^(?![._-])(?!.*[._-]{2})(?!.*[._-]\s*$)[A-Za-z0-9._-]+(?:\s*)$/;
     const PASSWORD_RE = /^[\x21-\x7E]+$/;
