@@ -13,8 +13,10 @@ This repository contains the source code for my personal website.
 - Vite
 - React Router
 - Tailwind CSS
-- Nginx (hosting on EC2)
+- Nginx to serve the website
 - Cloudflare (DNS + proxy/CDN)
+- FastAPI API running in Docker on EC2, with Nginx reverse proxying requests to the container.
+- Certbot + Let's Encrypt for TLS certificates, with automated renew checks.
 
 ## Project Structure
 
