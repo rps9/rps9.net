@@ -51,16 +51,16 @@ function Home() {
           <h2 className="text-4xl font-bold text-center mb-12 text-white">My Experience</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <ExperienceCard
-              title="Integration Intern at Mass General Brigham"
-              description="Collaborated with the Software Integration team, handled API-related requests, and built automated API regression and baseline testing workflows in ReadyAPI/TestEngine with SQL-parameterized cases and reusable XML suites."
-              image={mgbImage}
-              tags={['APIs', 'ReadyAPI', 'TestEngine', 'SQL', 'ServiceNow']}
-            />
-            <ExperienceCard
               title="Software Developer at Superior Packaging and Finishing"
               description="Built client storefronts, internal REST APIs, and automation scripts. Managed Azure VMs and developed Python tooling that reduced new storefront setup time from one week to less than one day."
               image={superiorImage}
               tags={['Python', 'REST APIs', 'Azure', 'Nginx', 'Apache']}
+            />
+            <ExperienceCard
+              title="Integration Intern at Mass General Brigham"
+              description="Collaborated with the Software Integration team, handled API-related requests, and built automated API regression and baseline testing workflows in ReadyAPI/TestEngine with SQL-parameterized cases and reusable XML suites."
+              image={mgbImage}
+              tags={['APIs', 'ReadyAPI', 'TestEngine', 'SQL', 'ServiceNow']}
             />
             <ExperienceCard
               title="IT Consultant at Boston University Engineering IT"
