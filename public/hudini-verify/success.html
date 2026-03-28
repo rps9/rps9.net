@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HUDini Verification Expired</title>
+    <title>HUDini Email Verified</title>
     <style>
       :root {
         color-scheme: light;
@@ -14,7 +14,8 @@
         --line: rgba(23, 32, 51, 0.08);
         --card: rgba(255, 255, 255, 0.82);
         --accent: #1f6fff;
-        --warning: #d08a14;
+        --accent-soft: rgba(31, 111, 255, 0.12);
+        --success: #1f9d73;
       }
       * { box-sizing: border-box; }
       body {
@@ -27,7 +28,7 @@
         color: var(--ink);
         background:
           radial-gradient(circle at top left, rgba(97, 174, 255, 0.28), transparent 28rem),
-          radial-gradient(circle at bottom right, rgba(252, 211, 77, 0.16), transparent 24rem),
+          radial-gradient(circle at bottom right, rgba(101, 222, 194, 0.18), transparent 24rem),
           linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
       }
       .card {
@@ -86,8 +87,8 @@
         margin: 22px 0 18px;
         padding: 10px 14px;
         border-radius: 999px;
-        background: rgba(208, 138, 20, 0.12);
-        color: var(--warning);
+        background: rgba(31, 157, 115, 0.12);
+        color: var(--success);
         font-weight: 700;
       }
       .footer {
@@ -102,13 +103,13 @@
     <main class="card">
       <p class="eyebrow">HUDini Verification</p>
       <div class="brand">
-        <div class="brand-mark"><img src="/hudini/logo.png" alt="HUDini logo" /></div>
+        <div class="brand-mark"><img src="/hudini-verify/logo.png" alt="HUDini logo" /></div>
         <strong>HUDini</strong>
       </div>
-      <h1>Verification link expired.</h1>
-      <p>This link is no longer active. Create the account again or request a fresh verification email from the HUDini flow.</p>
-      <div class="status">Link expired</div>
-      <p class="footer">After requesting a new email, use the most recent verification link.</p>
+      <h1>Email verified.</h1>
+      <p>Your account is ready. Return to the HUDini app and sign in with the email address you just verified.</p>
+      <div class="status">Verification complete</div>
+      <p class="footer">You can close this page and continue in the app.</p>
     </main>
   </body>
 </html>
