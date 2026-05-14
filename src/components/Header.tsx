@@ -8,7 +8,7 @@ type NavItem = { label: string; href?: string; onClick?: () => void };
 
 const HOME_HREF = "/";
 const MENU_LABEL = "Explore";
-const DEFAULT_MENU: NavItem[] = [{ label: "Sign In", href: "/sign-in" }, { label: "About Me", href: "/about-me" }, { label: "Darts", href: "/darts" }];
+const DEFAULT_MENU: NavItem[] = [{ label: "Sign In", href: "/sign-in" }, { label: "About Me", href: "/about-me" }, { label: "Resume", href: "/resume" }, { label: "Darts", href: "/darts" }];
 const ADMIN_MENU: NavItem[] = [{label: "Song Recs", href:"/song-recs"}]
 const OWNER_MENU: NavItem[] = [{label: "Owner Controls", href:"/owner-controls"}]
 

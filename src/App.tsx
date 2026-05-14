@@ -4,6 +4,7 @@ import Darts from './pages/Darts';
 import Cricket from './pages/Cricket';
 import X01 from './pages/X01';
 import AboutMe from './pages/AboutMe';
+import Resume from './pages/Resume';
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import SongRecommendations from './pages/SongRecommendations'
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/darts/cricket" element={<Cricket />} />
         <Route path="/darts/x01" element={<X01 />} />
         <Route path="/about-me" element={<AboutMe />} />
+        <Route path="/resume" element={<Resume />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/song-recs" element={<SongRecommendations />} />
