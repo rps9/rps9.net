@@ -1,6 +1,8 @@
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ClipboardToast } from '../components/ClipboardToast';
 import ExperienceCard from '../components/ExperienceCard';
 import Header from '../components/Header';
+import { useClipboardToast } from '../hooks/useClipboardToast';
 import federatedDiagramImage from '../assets/federated_diagram.jpg';
 import stocksImage from '../assets/stocks.jpg';
 import hudiniImage from '../assets/hudini.jpg';
@@ -12,6 +14,7 @@ import buImage from '../assets/bu.jpg';
 import websiteImage from '../assets/website.jpg';
 
 function Home() {
+  const { copy, visible } = useClipboardToast();
 
   return (
     <div className="bg-gray-900">
@@ -25,16 +28,34 @@ function Home() {
           <p className="text-xl md:text-2xl text-gray-300 mb-8">
             Welcome To My Website !
           </p>
-          <div className="flex gap-4 justify-center mb-12">
-            <a href="https://github.com/rps9" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
-              <Github size={24} />
+          <div className="mb-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-gray-400 md:text-base">
+            <a
+              href="https://github.com/rps9"
+              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              target="_blank"
+            >
+              <Github className="h-4 w-4" />
+              github.com/rps9
             </a>
-            <a href="https://www.linkedin.com/in/rps9/" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
-              <Linkedin size={24} />
+            <span className="text-gray-600">|</span>
+            <a
+              href="https://www.linkedin.com/in/rps9/"
+              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              target="_blank"
+            >
+              <Linkedin className="h-4 w-4" />
+              linkedin.com/in/rps9
             </a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ryans6892@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors" target="_blank">
-              <Mail size={24} />
-            </a>
+            <span className="text-gray-600">|</span>
+            <button
+              type="button"
+              aria-label="Copy email address"
+              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              onClick={() => void copy('ryans6892@gmail.com')}
+            >
+              <Mail className="h-4 w-4" />
+              ryans6892@gmail.com
+            </button>
           </div>
         </div>
         <a
@@ -130,6 +151,7 @@ function Home() {
       <footer className="py-8 text-center text-gray-400 bg-gray-900">
         <p>© {new Date().getFullYear()} Ryan Smith. All rights reserved.</p>
       </footer>
+      <ClipboardToast visible={visible} />
     </div>
   );
 }
