@@ -14,89 +14,108 @@ import buImage from '../assets/bu.jpg';
 import websiteImage from '../assets/website.jpg';
 
 function Home() {
-  const { copy, visible } = useClipboardToast();
+  const { copy, visible, message } = useClipboardToast();
+  const email = 'ryans6892@gmail.com';
+  const copyProjectEmail = () =>
+    void copy(email, 'Email copied to clipboard. Email me for details.');
 
   return (
-    <div className="bg-gray-900">
+    <div className="site-shell">
       <Header />
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center relative px-4 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Hi, I'm <span className="text-blue-400">Ryan</span>
+      <section className="site-section flex min-h-[calc(100dvh-4rem)] items-center">
+        <div className="site-container">
+          <p className="editorial-kicker">Developer Portfolio</p>
+          <h1 className="editorial-title mb-8">
+            Hi, I'm <span className="text-[#b21f2d]">Ryan</span> Smith.
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
-            Welcome To My Website !
-          </p>
-          <div className="mb-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-gray-400 md:text-base">
+          <div className="mb-12 flex flex-wrap items-center gap-3 text-sm text-neutral-700 md:text-base">
             <a
               href="https://github.com/rps9"
-              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              className="btn-secondary"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Github className="h-4 w-4" />
               github.com/rps9
             </a>
-            <span className="text-gray-600">|</span>
             <a
               href="https://www.linkedin.com/in/rps9/"
-              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              className="btn-secondary"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Linkedin className="h-4 w-4" />
               linkedin.com/in/rps9
             </a>
-            <span className="text-gray-600">|</span>
             <button
               type="button"
               aria-label="Copy email address"
-              className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 transition-colors hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              onClick={() => void copy('ryans6892@gmail.com')}
+              className="btn-secondary"
+              onClick={() => void copy(email)}
             >
               <Mail className="h-4 w-4" />
-              ryans6892@gmail.com
+              {email}
             </button>
           </div>
+          <a
+            className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-[#b21f2d] transition hover:text-black"
+            aria-label="Scroll down"
+            href="#experience"
+          >
+            <ArrowDown className="h-4 w-4" />
+            Experience
+          </a>
         </div>
-        <a
-          className="group inline-flex items-center rounded-full border border-gray-700 bg-gray-800/60 px-3 py-1 text-gray-300 transition hover:bg-gray-700 hover:text-white"
-          aria-label="Scroll down" href="#experience"
-        >
-          <ArrowDown className="h-4 w-4 group-hover:animate-bounce" />
-        </a>
       </section>
 
       {/* Experience Section */}
-      <section className="py-20 px-4 bg-gray-800" id="experience">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">My Experience</h2>
+      <section className="site-section" id="experience">
+        <div className="site-container">
+          <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="editorial-kicker">Work</p>
+              <h2 className="section-title">Experience</h2>
+            </div>
+            <p className="max-w-xl text-neutral-600">
+              Client systems, healthcare integration, and IT support work with emphasis on automation and maintainability.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <ExperienceCard
               title="Software Developer at Superior Packaging and Finishing"
               description="Built client storefronts, internal REST APIs, and automation scripts. Managed Azure VMs and developed Python tooling that reduced new storefront setup time from one week to less than one day."
               image={superiorImage}
               tags={['Python', 'REST APIs', 'Azure', 'Nginx', 'Apache']}
+              href="https://superiorpackagingandfinishing.com/"
             />
             <ExperienceCard
               title="Integration Intern at Mass General Brigham"
               description="Collaborated with the Software Integration team, handled API-related requests, and built automated API regression and baseline testing workflows in ReadyAPI/TestEngine with SQL-parameterized cases and reusable XML suites."
               image={mgbImage}
               tags={['APIs', 'ReadyAPI', 'TestEngine', 'SQL', 'ServiceNow']}
+              href="https://www.massgeneralbrigham.org/"
             />
             <ExperienceCard
               title="IT Consultant at Boston University Engineering IT"
               description="Imaged and configured Windows/Linux lab machines, resolved network and IAM issues (DNS/DHCP, 802.1X, VPN, MFA/SSO), and wrote internal guides that reduced repeat support tickets."
               image={buImage}
               tags={['Linux', 'Windows', 'Networking', 'VPN', 'IAM']}
+              href="https://www.bu.edu/engit/"
             />
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-4 bg-gray-800" id="projects">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">My Projects</h2>
+      <section className="site-section" id="projects">
+        <div className="site-container">
+          <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="editorial-kicker">Builds</p>
+              <h2 className="section-title">Projects</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <ExperienceCard
               title="Federated Learning in ChRIS"
@@ -105,6 +124,7 @@ function Home() {
               tags={['Docker', 'ChRIS', 'Flower', 'gRPC']}
               sourceType="open"
               sourceUrl="https://github.com/EC528-Fall-2025/FedMed-ChRIS"
+              expandableImage
             />
             <ExperienceCard
               title="Stock Tracking Website"
@@ -112,6 +132,7 @@ function Home() {
               image={stocksImage}
               tags={['React', 'TypeScript', 'Java', 'AWS SQS', 'CI/CD']}
               sourceType="closed"
+              onClick={copyProjectEmail}
             />
             <ExperienceCard
               title="Personal Website"
@@ -119,7 +140,7 @@ function Home() {
               image={websiteImage}
               tags={['FastAPI', 'PostgreSQL', 'Docker', 'OpenAI API', 'Spotify API']}
               sourceType="open"
-              sourceUrl="https://github.com/rps9/rps9.github.io"
+              sourceUrl="https://github.com/rps9/rps9.net"
             />
             <ExperienceCard
               title="HUDini Translation Glasses"
@@ -127,6 +148,8 @@ function Home() {
               image={hudiniImage}
               tags={['Swift', 'SwiftUI', 'CoreBluetooth', 'FastAPI', 'SQL']}
               sourceType="closed"
+              onClick={copyProjectEmail}
+              expandableImage
             />
             <ExperienceCard
               title="Point-to-Point IR Communication Device"
@@ -135,6 +158,7 @@ function Home() {
               tags={['C', 'Arduino', 'IRremote', 'I2C', 'Embedded']}
               sourceType="open"
               sourceUrl="https://github.com/rps9/point-to-point-IR"
+              expandableImage
             />
             <ExperienceCard
               title="Pintos Operating System Labs"
@@ -142,16 +166,20 @@ function Home() {
               image={osImage}
               tags={['C', 'Operating Systems', 'Virtual Memory', 'Concurrency']}
               sourceType="closed"
+              onClick={copyProjectEmail}
             />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-gray-400 bg-gray-900">
+      <footer
+        data-site-footer="true"
+        className="bg-black py-8 text-center text-sm font-semibold uppercase tracking-wide text-white"
+      >
         <p>© {new Date().getFullYear()} Ryan Smith. All rights reserved.</p>
       </footer>
-      <ClipboardToast visible={visible} />
+      <ClipboardToast visible={visible} message={message} />
     </div>
   );
 }

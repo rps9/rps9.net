@@ -156,18 +156,19 @@ export default function X01() {
     };
 
     return (
-        <>
+        <div className="site-shell">
         <Header />
-        <section className="min-h-screen px-4 py-8 bg-gradient-to-b from-gray-900 to-gray-800">
+        <section className="site-section-tight min-h-[calc(100dvh-4rem)]">
         
         <div className="w-full max-w-6xl mx-auto">
             {/* Top controls */}
             <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="space-y-3">
-                <h1 className="text-3xl md:text-4xl font-bold text-white">X01</h1>
+                <p className="editorial-kicker mb-1">Darts</p>
+                <h1 className="section-title">X01</h1>
 
                 <div className="w-full max-w-xs">
-                <label htmlFor="x01-start" className="block text-sm font-medium text-gray-400 mb-2">
+                <label htmlFor="x01-start" className="field-label">
                     Starting score
                 </label>
                 <input
@@ -177,8 +178,7 @@ export default function X01() {
                     placeholder="X01"
                     value={startScore}
                     onChange={(e) => setStartScore(Number(e.target.value || 0))}
-                    className="w-full bg-gray-900/70 text-white border border-gray-700 rounded-lg px-4 py-3 shadow-sm
-                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="field-control"
                     disabled={!!players.length || !!gameOver}
                 />
                 </div>
@@ -188,9 +188,7 @@ export default function X01() {
                 <button
                 onClick={addPlayer}
                 disabled={!canAdd}
-                className="inline-flex items-center justify-center h-11 px-5 rounded-lg bg-blue-500 text-white
-                            hover:bg-blue-600 transition-colors shadow-sm border border-blue-400/20
-                            disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary"
                 aria-disabled={!canAdd}
                 >
                 Add player {players.length > 0 ? `(${players.length}/4)` : ''}
@@ -199,11 +197,11 @@ export default function X01() {
                 <button
                 onClick={() => setRemoveMode(m => !m)}
                 disabled={!!gameOver || players.length === 0}
-                className={`inline-flex items-center justify-center h-11 px-5 rounded-lg shadow-sm border
+                className={`inline-flex min-h-11 items-center justify-center border px-5 py-3 text-sm font-bold uppercase tracking-wide transition
                     ${removeMode
-                    ? 'bg-red-500/60 text-white border-red-400/30 hover:bg-red-500/70'
-                    : 'bg-red-600 text-white border-red-500 hover:bg-red-500'}
-                    disabled:opacity-50 disabled:cursor-not-allowed`}
+                    ? 'border-[#b21f2d] bg-white text-[#b21f2d] hover:bg-[#fff6f4]'
+                    : 'border-[#b21f2d] bg-[#b21f2d] text-white hover:bg-black'}
+                    disabled:cursor-not-allowed disabled:opacity-50`}
                 aria-pressed={removeMode}
                 title={removeMode ? 'Click a player to remove (active)' : 'Toggle remove mode'}
                 >
@@ -213,15 +211,14 @@ export default function X01() {
             </div>
 
             {/* Turn HUD */}
-            <div className="mt-4 text-sm text-gray-300">
+            <div className="status-note mt-4">
             {gameOver && activeId !== null ? (
-                <span className="text-green-400 font-semibold">
-                Game over — Winner: {players.find(p => p.id === gameOver.winnerId)?.name}
+                <span className="font-semibold text-emerald-800">
+                Game over - Winner: {players.find(p => p.id === gameOver.winnerId)?.name}
                 <button
                 onClick={restartGame}
                 disabled={players.length === 0}
-                className="inline-flex items-center justify-center ml-3 h-9 px-3 rounded-lg bg-gray-700 text-white
-                            hover:bg-gray-600 transition-colors shadow-sm border border-gray-600"
+                className="btn-secondary ml-3 min-h-9 px-3 py-2"
                 title="Restart game"
                 >
                     <RotateCcw className="mr-2 h-4 w-4" />
@@ -230,11 +227,11 @@ export default function X01() {
                 </span>
             ) : activeId !== null ? (
                 <>
-                Turn: <span className="text-white font-semibold">{players.find(p => p.id === activeId)?.name}</span>
-                <span className="ml-3 text-gray-400">Dart {throwsThisTurn + 1} of 3</span>
+                Turn: <span className="font-black text-black">{players.find(p => p.id === activeId)?.name}</span>
+                <span className="ml-3 text-neutral-600">Dart {throwsThisTurn + 1} of 3</span>
                 </>
             ) : (
-                <span className="text-gray-500">Add a player to begin</span>
+                <span className="text-neutral-500">Add a player to begin</span>
             )}
             </div>
 
@@ -269,6 +266,6 @@ export default function X01() {
             </div>
         </div>
         </section>
-        </>
+        </div>
     );
 }

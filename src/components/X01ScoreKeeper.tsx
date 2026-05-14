@@ -82,10 +82,10 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
         <button
           key={m}
           onClick={(e) => { setMult(m as Mult); (e.currentTarget as HTMLButtonElement).blur(); }}
-          className={`h-10 px-4 rounded-lg border transition-colors
+          className={`h-10 border px-4 text-sm font-bold uppercase tracking-wide transition-colors
             ${mult === m
-              ? 'bg-blue-500 text-white border-blue-400'
-              : 'bg-gray-800/80 text-gray-200 border-gray-700 hover:bg-gray-700'}`}
+              ? 'border-black bg-black text-white'
+              : 'border-black bg-white text-black hover:bg-neutral-100'}`}
           aria-pressed={mult === m}
           disabled={disabled}
         >
@@ -98,7 +98,7 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
         <button
           onClick={() => { if (!disabled) onMiss(); }}
           disabled={disabled}
-          className="h-10 px-4 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-200 hover:bg-gray-700 transition-colors disabled:opacity-50"
+          className="btn-secondary min-h-10 px-4 py-2 disabled:opacity-50"
           title="Record a miss (0 points)"
         >
           Miss
@@ -106,7 +106,7 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
         <button
           onClick={() => { if (!disabled) onUndo(); }}
           disabled={disabled}
-          className="h-10 px-4 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-200 hover:bg-gray-700 transition-colors disabled:opacity-50"
+          className="btn-secondary min-h-10 px-4 py-2 disabled:opacity-50"
           title="Undo last throw"
         >
           Undo
@@ -115,8 +115,8 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
     </div>
 
       {/* Numbers grid */}
-      <div className="mt-4 rounded-xl border border-gray-700 bg-gray-900/70 shadow-sm overflow-hidden">
-        <div className="divide-y divide-gray-800">
+      <div className="mt-4 overflow-hidden border border-black bg-white">
+        <div className="divide-y divide-black">
           {ROWS.map((row, rIdx) => (
             <div key={rIdx} className="grid grid-cols-7">
               {row.map((cell) => {
@@ -130,10 +130,9 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
                     onTouchEnd={(e) => (e.currentTarget as HTMLButtonElement).blur()}
                     disabled={cellDisabled}
                     aria-disabled={cellDisabled}
-                    className={`relative py-3 px-2 text-center border-r border-gray-800 last:border-r-0
-                                text-gray-100 transition-colors
-                                ${cellDisabled ? 'opacity-40 cursor-not-allowed' : 'hover:bg-gray-800/70'}
-                                ${isFlashing ? 'ring-2 ring-blue-500 ring-inset bg-blue-600/20' : ''}
+                    className={`relative border-r border-black px-2 py-3 text-center font-bold text-black transition-colors last:border-r-0
+                                ${cellDisabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-neutral-100'}
+                                ${isFlashing ? 'ring-2 ring-blue-600 ring-inset bg-blue-50' : ''}
                                 focus:outline-none`}
                   >
                     {labelFor(cell)}
@@ -146,11 +145,11 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
       </div>
 
       {/* Last selection */}
-      <div className="mt-3 text-sm text-gray-300">
+      <div className="mt-3 text-sm text-neutral-600">
         {selected ? (
-          <>Selected: <span className="font-semibold text-white">{selected}</span></>
+          <>Selected: <span className="font-black text-black">{selected}</span></>
         ) : (
-          <span className="text-gray-500">Pick a number…</span>
+          <span className="text-neutral-500">Pick a number...</span>
         )}
       </div>
     </div>

@@ -7,21 +7,23 @@ import fushimiImage from '../assets/fushimi.jpg';
 
 export default function AboutMe() {
     return (
-    <>
+    <div className="site-shell">
     <Header />
-        <section className="min-h-screen flex flex-col items-center relative px-4 bg-gradient-to-b from-gray-900 to-gray-800">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-5xl md:text-6xl font-bold text-white mt-6 mb-6">
-                    About <span className="text-blue-400">Me</span>
+        <section className="site-section min-h-[calc(100dvh-4rem)]">
+            <div className="site-container">
+                <h1 className="editorial-title mb-8">
+                    About <span className="text-[#b21f2d]">Me</span>
                 </h1>
-                <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                <div className="border-t border-black pt-8">
+                    <div className="space-y-6">
+                <p className="text-lg leading-8 text-neutral-700">
                     I'm a Computer Engineering student who has a passion for coding and machine learning. I enjoy automating certain things in my life and hosting as many things as I can for free. I am always diving into new projects, trying to learn as much as I can.
                 </p>
-                <p className="text-lg md:text-xl text-gray-400 mt-6">
+                <p className="text-lg leading-8 text-neutral-700">
                     Outside of school and work, I like to play basketball, travel, and try new things. 
                 </p>
-            </div>
-            <div className="w-full">
+                    </div>
+                </div>
                 <Slideshow
                     slides={[
                         { src: lakeBiwaImage, caption: "Lake Biwa Boats" },
@@ -32,6 +34,6 @@ export default function AboutMe() {
                 />
             </div>
         </section>
-    </>
+    </div>
     );
 }

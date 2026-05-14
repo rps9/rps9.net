@@ -50,30 +50,30 @@ export default function SongRecommendations() {
 	return (
 		<>
 			<Header />
-			<section className="min-h-screen flex flex-col items-center relative px-4 bg-gradient-to-b from-gray-900 to-gray-800 py-20">
+			<section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center py-20">
 				<SongSearch onChange={(tracks) => setSelected(tracks)} />
 
 				<div className="w-full max-w-4xl mx-auto mt-8">
-					<label className="block text-sm text-gray-400 mb-2">Optional instructions</label>
+					<label className="field-label">Optional instructions</label>
 					<textarea
 						value={instructions}
 						onChange={(e) => setInstructions(e.target.value)}
 						rows={3}
 						placeholder="e.g., more 90s alt rock, no explicit lyrics, upbeat tempo"
-						className="w-full bg-gray-800 border border-gray-700 rounded-2xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="field-control p-4"
 					/>
 					<div className="mt-4 flex items-center justify-between">
-						<div className="text-sm text-gray-400">
+						<div className="text-sm font-semibold text-neutral-600">
 							{selected.length} seed{selected.length !== 1 ? "s" : ""} selected
 						</div>
 						<button
 							onClick={getRecommendations}
 							disabled={loading}
-							className="px-5 py-3 rounded-2xl bg-blue-500 hover:bg-blue-600 disabled:opacity-60 text-white font-semibold transition-colors"
+							className="btn-primary"
 						>
 							{loading ? (
 								<span className="inline-flex items-center gap-2">
-									<Loader2 className="h-4 w-4 animate-spin" /> Getting recommendations…
+									<Loader2 className="h-4 w-4 animate-spin" /> Getting recommendations...
 								</span>
 							) : (
 								"Get Recommendations"
@@ -81,7 +81,7 @@ export default function SongRecommendations() {
 						</button>
 					</div>
 					{err && (
-						<div className="mt-4 flex items-center gap-2 text-yellow-400">
+						<div className="status-error mt-4 flex items-center gap-2">
 							<AlertTriangle className="h-5 w-5" />
 							<span>{err}</span>
 						</div>
@@ -91,23 +91,23 @@ export default function SongRecommendations() {
 				{/* Display results */}
 				{recs && (
 					<div className="w-full max-w-6xl mx-auto mt-10">
-						<h2 className="text-3xl font-bold text-white mb-4 text-center">Your Mix</h2>
+						<h2 className="section-title mb-6 text-center">Your Mix</h2>
 						<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 							{recs.map((r, i) => (
 								<li
 									key={`${r.title}-${r.artist}-${i}`}
-									className="bg-gray-800 border border-gray-700 rounded-2xl p-4"
+									className="border border-black bg-white p-4"
 								>
 									<div className="flex items-start gap-3">
-										<div className="h-10 w-10 rounded-xl bg-gray-700 flex items-center justify-center">
-											<Music2 className="h-5 w-5 text-blue-400" />
+										<div className="flex h-10 w-10 items-center justify-center border border-black bg-[#f6f3ed]">
+											<Music2 className="h-5 w-5 text-[#b21f2d]" />
 										</div>
 										<div className="min-w-0">
-											<div className="text-white font-semibold truncate">{r.title}</div>
-											<div className="text-sm text-gray-400 truncate">{r.artist}</div>
-											{r.why && <p className="mt-2 text-sm text-gray-300">{r.why}</p>}
+											<div className="truncate font-bold text-black">{r.title}</div>
+											<div className="truncate text-sm text-neutral-600">{r.artist}</div>
+											{r.why && <p className="mt-2 text-sm leading-6 text-neutral-700">{r.why}</p>}
 										</div>
-										<div className="ml-auto text-gray-500 text-sm">#{i + 1}</div>
+										<div className="ml-auto text-sm font-bold text-[#b21f2d]">#{i + 1}</div>
 									</div>
 								</li>
 							))}

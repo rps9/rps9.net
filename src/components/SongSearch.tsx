@@ -60,8 +60,8 @@ export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) 
 					setHits(nextHits);
 					setShowResults(nextHits.length > 0);
 				}
-			} catch (e: any) {
-				if (e.name !== "AbortError") {
+			} catch (e: unknown) {
+				if (!(e instanceof DOMException && e.name === "AbortError")) {
 					setErr("Search failed");
 					setHits([]);
 					setShowResults(false);
@@ -96,9 +96,9 @@ export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) 
 	};
 
 	return (
-		<div className="py-5 w-full text-gray-300">
-			<h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-8">
-				Song <span className="text-blue-400">Picker</span>
+		<div className="w-full py-5 text-black">
+			<h1 className="mb-8 text-center text-4xl font-black text-black md:text-5xl">
+				Song <span className="text-[#b21f2d]">Picker</span>
 			</h1>
 
 			{/* Search input + overlay dropdown (no layout shift) */}
@@ -108,23 +108,23 @@ export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) 
 					onChange={(e) => setQ(e.target.value)}
 					onFocus={() => setShowResults(hits.length > 0)}
 					onKeyDown={(e) => e.key === "Escape" && setShowResults(false)}
-					placeholder="Search songs…"
-					className="w-full bg-gray-800 border border-gray-700 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+					placeholder="Search songs..."
+					className="field-control py-3 pl-12 pr-4"
 				/>
-				<Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+				<Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
 
 				{showResults && (
-					<div className="absolute left-0 right-0 mt-2 z-50 bg-gray-800/95 backdrop-blur border border-gray-700 rounded-2xl shadow-2xl max-h-80 overflow-y-auto">
+					<div className="absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto border border-black bg-white shadow-[8px_8px_0_#111]">
 						<ul className="py-2">
-							{loading && <li className="px-4 py-3 text-gray-400">Searching…</li>}
+							{loading && <li className="px-4 py-3 text-neutral-500">Searching...</li>}
 							{!loading && err && (
-								<li className="px-4 py-3 text-yellow-400 flex items-center gap-2">
+								<li className="flex items-center gap-2 px-4 py-3 text-[#8f1420]">
 									<AlertTriangle className="h-5 w-5" />
 									<span>{err}</span>
 								</li>
 							)}
 							{!loading && !err && hits.length === 0 && q.trim() && (
-								<li className="px-4 py-3 text-gray-400">No results</li>
+								<li className="px-4 py-3 text-neutral-500">No results</li>
 							)}
 							{hits.map((t, i) => (
 								<li key={`${t.name}-${t.artists}-${i}`}>
@@ -133,18 +133,18 @@ export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) 
 											add(t);
 											setShowResults(false);
 										}}
-										className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-700/70 text-left"
+										className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-neutral-100"
 									>
 										{t.image ? (
-											<img src={t.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
+											<img src={t.image} alt="" className="h-10 w-10 border border-black object-cover" />
 										) : (
-											<div className="h-10 w-10 rounded-lg bg-gray-700" />
+											<div className="h-10 w-10 border border-black bg-neutral-100" />
 										)}
 										<div className="flex-1 min-w-0">
-											<div className="text-white font-semibold truncate">{t.name}</div>
-											<div className="text-sm text-gray-400 truncate">{t.artists}</div>
+											<div className="truncate font-bold text-black">{t.name}</div>
+											<div className="truncate text-sm text-neutral-600">{t.artists}</div>
 										</div>
-										<Plus className="h-5 w-5 text-blue-400 shrink-0" />
+										<Plus className="h-5 w-5 shrink-0 text-[#b21f2d]" />
 									</button>
 								</li>
 							))}
@@ -155,33 +155,33 @@ export default function SongSearch({ onChange }: { onChange?: (tracks: Track[]) 
 
 			{/* Selected list (stable, no dependency on overlay height) */}
 			<div className="max-w-4xl mx-auto mt-8">
-				<h2 className="text-2xl font-bold text-white mb-4 text-center md:text-left">Selected</h2>
+				<h2 className="mb-4 border-t border-black pt-4 text-center text-2xl font-black text-black md:text-left">Selected</h2>
 				{picked.length === 0 ? (
-					<p className="text-gray-400 text-center md:text-left">Nothing yet — pick songs above.</p>
+					<p className="text-center text-neutral-600 md:text-left">Nothing yet - pick songs above.</p>
 				) : (
 					<ul className="space-y-3">
 						{picked.map((t, idx) => (
 							<li
 								key={`${t.name}-${idx}`}
-								className="flex items-center justify-between bg-gray-800 border border-gray-700 rounded-2xl p-3"
+								className="flex items-center justify-between border border-black bg-white p-3"
 							>
 								<div className="flex items-center gap-3 min-w-0">
 									{t.image ? (
-										<img src={t.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
+										<img src={t.image} alt="" className="h-10 w-10 border border-black object-cover" />
 									) : (
-										<div className="h-10 w-10 rounded-lg bg-gray-700" />
+										<div className="h-10 w-10 border border-black bg-neutral-100" />
 									)}
 									<div className="min-w-0">
-										<div className="text-white font-medium truncate">{t.name}</div>
-										<div className="text-sm text-gray-400 truncate">{t.artists}</div>
+										<div className="truncate font-bold text-black">{t.name}</div>
+										<div className="truncate text-sm text-neutral-600">{t.artists}</div>
 									</div>
 								</div>
 								<button
 									onClick={() => removeAt(idx)}
-									className="p-2 rounded-xl hover:bg-gray-700 transition-colors"
+									className="border border-transparent p-2 transition-colors hover:border-black hover:bg-neutral-100"
 									aria-label="Remove"
 								>
-									<X className="h-5 w-5 text-gray-400" />
+									<X className="h-5 w-5 text-neutral-700" />
 								</button>
 							</li>
 						))}

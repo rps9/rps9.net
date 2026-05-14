@@ -75,21 +75,21 @@ export default function Header() {
   return (
     <header
       ref={containerRef}
-      className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900/70 backdrop-blur"
+      className="sticky top-0 z-50 border-b border-black bg-white/95 backdrop-blur"
     >
       <div className="mx-auto flex h-16 w-full items-center justify-end px-4">
         {/* Desktop nav - pinned right */}
         <nav className="hidden md:flex items-center gap-6">
           <Link
             to={HOME_HREF}
-            className="text-gray-300 transition-colors hover:text-blue-400"
+            className="text-sm font-bold uppercase tracking-wide text-black transition-colors hover:text-[#b21f2d]"
           >
             Home
           </Link>
 
           <div className="relative">
             <button
-              className="flex items-center gap-1 rounded-md px-2 py-1 text-gray-300 outline-none ring-blue-500 transition hover:text-blue-400 focus-visible:ring-2"
+              className="flex items-center gap-1 border border-transparent px-2 py-1 text-sm font-bold uppercase tracking-wide text-black transition hover:border-black hover:text-[#b21f2d]"
               aria-haspopup="menu"
               aria-expanded={open}
               onClick={(e) => {
@@ -106,10 +106,10 @@ export default function Header() {
             {open && (
               <div
                 role="menu"
-                className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-gray-800 bg-gray-800/95 shadow-xl"
+                className="absolute right-0 mt-2 w-56 overflow-hidden border border-black bg-white shadow-[8px_8px_0_#111]"
               >
                 {MENU_ITEMS.length === 0 && (
-                  <div className="px-4 py-3 text-sm text-gray-400">
+                  <div className="px-4 py-3 text-sm text-neutral-500">
                     No links yet — add some!
                   </div>
                 )}
@@ -119,7 +119,7 @@ export default function Header() {
                       {item.onClick ? (
                         <button
                           type="button"
-                          className="w-full text-left block px-4 py-2 text-sm text-gray-300 transition hover:bg-gray-700 hover:text-white"
+                          className="block w-full border-b border-neutral-200 px-4 py-3 text-left text-sm font-semibold text-black transition last:border-b-0 hover:bg-neutral-100 hover:text-[#b21f2d]"
                           onClick={item.onClick}
                         >
                           {item.label}
@@ -127,7 +127,7 @@ export default function Header() {
                       ) : (
                         <Link
                           to={item.href!}
-                          className="block px-4 py-2 text-sm text-gray-300 transition hover:bg-gray-700 hover:text-white"
+                          className="block border-b border-neutral-200 px-4 py-3 text-sm font-semibold text-black transition last:border-b-0 hover:bg-neutral-100 hover:text-[#b21f2d]"
                           onClick={() => setOpen(false)}
                         >
                           {item.label}
@@ -144,14 +144,14 @@ export default function Header() {
         <Link
             to={HOME_HREF}
             aria-label="Home"
-            className="md:hidden rounded-md p-2 text-gray-300 transition hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            className="md:hidden p-2 text-black transition hover:text-[#b21f2d]"
         >
             <Home className="h-5 w-5" />
         </Link>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex items-center gap-2 rounded-md p-2 text-gray-300 outline-none ring-blue-500 transition hover:text-blue-400 focus-visible:ring-2"
+          className="md:hidden flex items-center gap-2 border border-black p-2 text-black transition hover:text-[#b21f2d]"
           aria-label="Open menu"
           onClick={(e) => {
             e.stopPropagation();
@@ -165,15 +165,15 @@ export default function Header() {
       {/* Mobile sheet */}
       {mobileOpen && (
         <div className="md:hidden">
-          <div className="border-t border-gray-800 bg-gray-800/60 flex justify-end">
+          <div className="flex justify-end border-t border-black bg-white">
             <nav className="px-4 py-3 text-right">
               <div className="mt-2">
-                <div className="px-3 pb-1 text-xs uppercase tracking-wider text-gray-400">
+                <div className="px-3 pb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#b21f2d]">
                   {MENU_LABEL}
                 </div>
                 <ul className="space-y-1">
                   {MENU_ITEMS.length === 0 && (
-                    <li className="rounded-md px-3 py-2 text-sm text-gray-500">
+                    <li className="px-3 py-2 text-sm text-neutral-500">
                       No links yet — add some!
                     </li>
                   )}
@@ -182,7 +182,7 @@ export default function Header() {
                         {item.onClick ? (
                           <button
                             type="button"
-                            className="w-full text-right block rounded-md px-3 py-2 text-gray-300 transition hover:bg-gray-800 hover:text-white"
+                            className="block w-full border border-transparent px-3 py-2 text-right font-semibold text-black transition hover:border-black hover:text-[#b21f2d]"
                             onClick={item.onClick}
                           >
                             {item.label}
@@ -190,7 +190,7 @@ export default function Header() {
                         ) : (
                           <Link
                             to={item.href!}
-                            className="block rounded-md px-3 py-2 text-gray-300 transition hover:bg-gray-800 hover:text-white"
+                            className="block border border-transparent px-3 py-2 font-semibold text-black transition hover:border-black hover:text-[#b21f2d]"
                             onClick={() => setMobileOpen(false)}
                           >
                             {item.label}

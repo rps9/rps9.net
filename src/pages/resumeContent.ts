@@ -2,7 +2,6 @@ export const resumePdfPath = '/resume/ryan_smith_resume.pdf';
 
 export const contactLinks = [
   { label: 'ryans6892@gmail.com', copyValue: 'ryans6892@gmail.com' },
-  { label: '781-985-7151', copyValue: '781-985-7151' },
   { label: 'linkedin.com/in/rps9', href: 'https://linkedin.com/in/rps9' },
   { label: 'github.com/rps9', href: 'https://github.com/rps9' },
   { label: 'Boston, MA' },

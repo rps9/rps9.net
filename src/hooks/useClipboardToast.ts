@@ -20,6 +20,7 @@ async function copyText(text: string) {
 
 export function useClipboardToast() {
   const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('Copied to clipboard');
   const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -30,8 +31,9 @@ export function useClipboardToast() {
     };
   }, []);
 
-  const copy = useCallback(async (text: string) => {
+  const copy = useCallback(async (text: string, nextMessage = 'Copied to clipboard') => {
     await copyText(text);
+    setMessage(nextMessage);
     setVisible(true);
 
     if (timeoutRef.current) {
@@ -40,8 +42,8 @@ export function useClipboardToast() {
 
     timeoutRef.current = window.setTimeout(() => {
       setVisible(false);
-    }, 1600);
+    }, 2500);
   }, []);
 
-  return { copy, visible };
+  return { copy, visible, message };
 }

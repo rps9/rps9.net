@@ -57,7 +57,14 @@ export default function SignUp() {
                 body: JSON.stringify({ username: username.trim().toLowerCase(), password, email }),
             });
 
-            const data: SignUpResponse & ApiError = await res.json().catch(() => ({} as any));
+            const data: SignUpResponse & ApiError = await res.json().catch(() => ({
+                ok: false,
+                message: "",
+                access_token: "",
+                token_type: "",
+                expires_at: 0,
+                role: "",
+            }));
 
             if (res.ok) {
                 setAuth(data.access_token, data.role, data.expires_at, remember);
@@ -85,25 +92,26 @@ export default function SignUp() {
     return (
         <>
             <Header />
-            <section className="min-h-screen flex flex-col items-center relative px-4 bg-gradient-to-b from-gray-900 to-gray-800">
-                <div className="max-w-md mx-auto w-full py-20">
-                    <div className="bg-gray-800/60 backdrop-blur rounded-2xl border border-gray-700 shadow-xl p-8">
-                        <h1 className="text-4xl font-bold text-white text-center mb-2">Sign up</h1>
+            <section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center">
+                <div className="mx-auto w-full max-w-xs py-20 sm:max-w-sm md:max-w-md">
+                    <div className="page-panel">
+                        <p className="editorial-kicker text-center">Account</p>
+                        <h1 className="mb-8 text-center text-4xl font-black text-black">Sign up</h1>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Username */}
                             <div>
-                                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">Username</label>
+                                <label htmlFor="username" className="field-label">Username</label>
                                 <input
                                     id="username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     onBlur={() => setTouched(t => ({ ...t, username: true }))}
-                                    className="w-full rounded-xl bg-gray-900 text-gray-100 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 px-4 py-3"
+                                    className="field-control"
                                     placeholder="username"
                                 />
                                 {usernameError && (
-                                    <p className="mt-2 text-sm text-red-400 flex items-center gap-2">
+                                    <p className="mt-2 flex items-center gap-2 text-sm font-medium text-[#8f1420]">
                                         <AlertCircle className="h-4 w-4" /> {usernameError}
                                     </p>
                                 )}
@@ -111,7 +119,7 @@ export default function SignUp() {
 
                             {/* Password */}
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                                <label htmlFor="password" className="field-label">Password</label>
                                 <div className="relative">
                                     <input
                                         id="password"
@@ -119,15 +127,15 @@ export default function SignUp() {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         onBlur={() => setTouched(t => ({ ...t, password: true }))}
-                                        className="w-full rounded-xl bg-gray-900 text-gray-100 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 px-4 py-3 pr-12"
+                                        className="field-control pr-12"
                                     />
                                     <button type="button" onClick={() => setShowPw(s => !s)}
-                                        className="absolute inset-y-0 right-3 my-auto p-2 text-gray-400 hover:text-gray-200">
+                                        className="absolute inset-y-0 right-3 my-auto p-2 text-neutral-600 hover:text-[#b21f2d]">
                                         {showPw ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                     </button>
                                 </div>
                                 {passwordError && (
-                                    <p className="mt-2 text-sm text-red-400 flex items-center gap-2">
+                                    <p className="mt-2 flex items-center gap-2 text-sm font-medium text-[#8f1420]">
                                         <AlertCircle className="h-4 w-4" /> {passwordError}
                                     </p>
                                 )}
@@ -135,18 +143,18 @@ export default function SignUp() {
 
                             {/* Email */}
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                <label htmlFor="email" className="field-label">Email</label>
                                 <input
                                     type="email"
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     onBlur={() => setTouched(t => ({ ...t, email: true }))}
-                                    className="w-full rounded-xl bg-gray-900 text-gray-100 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 px-4 py-3"
+                                    className="field-control"
                                     placeholder="example@gmail.com"
                                 />
                                 {emailError && (
-                                    <p className="mt-2 text-sm text-red-400 flex items-center gap-2">
+                                    <p className="mt-2 flex items-center gap-2 text-sm font-medium text-[#8f1420]">
                                         <AlertCircle className="h-4 w-4" /> {emailError}
                                     </p>
                                 )}
@@ -159,29 +167,29 @@ export default function SignUp() {
                                         type="checkbox"
                                         checked={remember}
                                         onChange={(e) => setRemember(e.target.checked)}
-                                        className="h-4 w-4 rounded border-gray-700 bg-gray-900 text-blue-500"
+                                        className="h-4 w-4 border-black text-[#b21f2d]"
                                     />
-                                    <span className="text-sm text-gray-400">Remember me</span>
+                                    <span className="text-sm text-neutral-600">Remember me</span>
                                 </label>
-                                <a href="/sign-in" className="text-sm text-blue-400 hover:underline">Sign In</a>
+                                <a href="/sign-in" className="text-sm font-bold text-[#b21f2d] hover:text-black">Sign In</a>
                             </div>
 
                             {/* Submit */}
                             <button
                                 type="submit"
                                 disabled={!canSubmit}
-                                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-semibold px-4 py-3"
+                                className="btn-primary w-full"
                             >
                                 {loading ? <><Loader2 className="h-5 w-5 animate-spin" />Signing up</> : <><LogIn className="h-5 w-5" /> Sign up</>}
                             </button>
 
                             {formError && (
-                                <div className="rounded-xl border border-red-500/40 bg-red-500/10 text-red-300 px-4 py-3">
+                                <div className="status-error">
                                     <p className="text-sm flex items-center gap-2"><AlertCircle className="h-4 w-4" /> {formError}</p>
                                 </div>
                             )}
                             {formSuccess && (
-                                <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 px-4 py-3">
+                                <div className="status-success">
                                     <p className="text-sm flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> {formSuccess}</p>
                                 </div>
                             )}

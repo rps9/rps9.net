@@ -6,7 +6,7 @@ interface SkillBadgeProps {
 
 const SkillBadge: React.FC<SkillBadgeProps> = ({ name}) => {
   return (
-    <div className="px-4 py-2 rounded-full bg-blue-900 text-blue-200">
+    <div className="border border-black bg-white px-4 py-2 text-black">
       <span className="font-medium">{name}</span>
     </div>
   );

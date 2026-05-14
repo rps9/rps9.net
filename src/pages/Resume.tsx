@@ -80,7 +80,7 @@ export default function Resume() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="site-shell">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap');
 
@@ -180,13 +180,17 @@ export default function Resume() {
       `}</style>
 
       <Header />
-      <main className="flex min-h-[calc(100dvh-4rem)] flex-col px-2 py-2">
-        <div className="mx-auto mb-2 flex w-full max-w-[816px] justify-end">
+      <main className="flex min-h-[calc(100dvh-4rem)] flex-col px-2 py-4">
+        <div className="mx-auto mb-4 flex w-full max-w-[816px] items-center justify-between border-b border-black pb-3">
+          <div>
+            <p className="editorial-kicker mb-1">Resume</p>
+            <h1 className="text-2xl font-black text-black">Ryan Smith</h1>
+          </div>
           <a
             href={resumePdfPath}
             download
             aria-label="Download resume PDF"
-            className="inline-flex h-8 items-center gap-2 rounded-md border border-gray-700 bg-gray-800 px-3 text-sm font-medium text-gray-200 transition hover:border-blue-400 hover:text-blue-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+            className="btn-primary min-h-9 px-3 py-2"
           >
             <Download className="h-4 w-4" />
             PDF
@@ -223,7 +227,9 @@ export default function Resume() {
                           {contact.label}
                         </button>
                       ) : contact.href ? (
-                        <a href={contact.href}>{contact.label}</a>
+                        <a href={contact.href} target="_blank" rel="noopener noreferrer">
+                          {contact.label}
+                        </a>
                       ) : (
                         contact.label
                       )}
@@ -239,7 +245,7 @@ export default function Resume() {
                   leftBottom="Bachelor of Science in Computer Engineering"
                   rightBottom="May 2026"
                 />
-                <p className="resume-gpa">GPA: 3.65, Dean's List</p>
+                <p className="resume-gpa">GPA: 3.68, Dean's List</p>
               </Section>
 
               <Section title="Professional Experience">

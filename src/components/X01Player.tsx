@@ -24,10 +24,10 @@ export default function X01Player({
         <div
         onClick={clickableRemove ? onRemove : clickableActivate ? onActivate : undefined}
         className={[
-            "min-w-0 w-full bg-gray-900/70 border border-gray-700 rounded-xl p-4",
-            "text-gray-200 shadow-sm flex flex-col",
-            clickableRemove ? "cursor-pointer hover:bg-gray-800/70 ring-1 ring-red-500/60" : "",
-            !clickableRemove && isActive ? "ring-1 ring-green-500/60" : "",   // <-- green turn highlight
+            "min-w-0 w-full border border-black bg-white p-4",
+            "text-black shadow-none flex flex-col",
+            clickableRemove ? "cursor-pointer hover:bg-[#fff6f4] ring-2 ring-[#b21f2d]" : "",
+            !clickableRemove && isActive ? "ring-2 ring-blue-600" : "",
             className,
         ].join(" ")}
         role={clickableRemove ? "button" : undefined}
@@ -51,10 +51,7 @@ export default function X01Player({
             onChange={(e) => onNameChange(e.target.value)}
             placeholder={indexLabel}
             autoComplete="off"
-            className="flex-1 min-w-0 text-sm leading-5 bg-gray-900/70 text-white
-                        border border-gray-700 rounded-lg px-2 py-2
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                        placeholder:text-gray-500"
+            className="field-control min-w-0 flex-1 px-2 py-2 text-sm leading-5"
             // prevent remove/activate when interacting with the input
             onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => {
@@ -63,9 +60,9 @@ export default function X01Player({
             />
 
             <div className="shrink-0">
-            <span className="inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-800/70 px-3 py-2">
-                <span className="text-xs text-gray-400">Score</span>
-                <span className="text-sm text-white font-semibold">{score === '' ? '—' : score}</span>
+            <span className="score-pill">
+                <span className="text-xs font-bold uppercase tracking-wide text-neutral-500">Score</span>
+                <span className="text-sm font-black text-black">{score === '' ? '-' : score}</span>
             </span>
             </div>
         </div>
