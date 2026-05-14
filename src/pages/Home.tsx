@@ -23,7 +23,7 @@ function Home() {
     <div className="site-shell">
       <Header />
       {/* Hero Section */}
-      <section className="site-section flex min-h-[calc(100dvh-4rem)] items-center">
+      <section className="site-section flex min-h-[calc(100svh-4rem)] items-center">
         <div className="site-container">
           <p className="editorial-kicker">Developer Portfolio</p>
           <h1 className="editorial-title mb-8">

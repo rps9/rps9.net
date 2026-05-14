@@ -18,7 +18,7 @@ export default function Darts() {
   return (
     <div className="site-shell">
     <Header />
-    <section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center">
+    <section className="site-section flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center">
       <div className="max-w-3xl w-full mx-auto text-center">
         <p className="editorial-kicker text-center">Scorekeepers</p>
         <h1 className="editorial-title mx-auto text-center">

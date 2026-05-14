@@ -92,7 +92,7 @@ export default function SignUp() {
     return (
         <>
             <Header />
-            <section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center">
+            <section className="site-section flex min-h-[calc(100svh-4rem)] flex-col items-center">
                 <div className="mx-auto w-full max-w-xs py-20 sm:max-w-sm md:max-w-md">
                     <div className="page-panel">
                         <p className="editorial-kicker text-center">Account</p>

@@ -44,7 +44,7 @@ export default function OwnerControls() {
 	return (
         <>
         <Header />
-		<section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center">
+		<section className="site-section flex min-h-[calc(100svh-4rem)] flex-col items-center">
 			<div className="mx-auto w-full max-w-xs py-20 sm:max-w-sm md:max-w-xl">
 				<div className="page-panel">
 					<div className="flex items-center justify-center gap-3 mb-6">

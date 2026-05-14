@@ -50,7 +50,7 @@ export default function SongRecommendations() {
 	return (
 		<>
 			<Header />
-			<section className="site-section flex min-h-[calc(100dvh-4rem)] flex-col items-center py-20">
+			<section className="site-section flex min-h-[calc(100svh-4rem)] flex-col items-center py-20">
 				<SongSearch onChange={(tracks) => setSelected(tracks)} />
 
 				<div className="w-full max-w-4xl mx-auto mt-8">

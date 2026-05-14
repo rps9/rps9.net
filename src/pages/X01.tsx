@@ -158,7 +158,7 @@ export default function X01() {
     return (
         <div className="site-shell">
         <Header />
-        <section className="site-section-tight min-h-[calc(100dvh-4rem)]">
+        <section className="site-section-tight min-h-[calc(100svh-4rem)]">
         
         <div className="w-full max-w-6xl mx-auto">
             {/* Top controls */}
