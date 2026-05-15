@@ -1,6 +1,7 @@
 import Header from '../components/Header';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Check, ChevronDown } from 'lucide-react';
 
 type Game = 'cricket' | 'X01';
 
@@ -11,14 +12,34 @@ const GAME_OPTIONS: { value: Game; label: string }[] = [
 
 export default function Darts() {
   const [game, setGame] = useState<Game>('cricket');
+  const [gameMenuOpen, setGameMenuOpen] = useState(false);
+  const gameMenuRef = useRef<HTMLDivElement>(null);
 
   const selected = GAME_OPTIONS.find(o => o.value === game)!;
   const targetPath = game === 'cricket' ? '/darts/cricket' : '/darts/x01';
 
+  useEffect(() => {
+    const closeGameMenu = (event: MouseEvent) => {
+      if (!gameMenuRef.current?.contains(event.target as Node)) {
+        setGameMenuOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setGameMenuOpen(false);
+    };
+
+    window.addEventListener('click', closeGameMenu);
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      window.removeEventListener('click', closeGameMenu);
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, []);
+
   return (
     <div className="site-shell">
     <Header />
-    <section className="site-section flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center">
+    <section className="site-section flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
       <div className="max-w-3xl w-full mx-auto text-center">
         <p className="editorial-kicker text-center">Scorekeepers</p>
         <h1 className="editorial-title mx-auto text-center">
@@ -32,26 +53,55 @@ export default function Darts() {
               Game format
             </label>
 
-            <div className="relative">
-              <select
+            <div className="relative" ref={gameMenuRef}>
+              <button
                 id="game"
-                value={game}
-                onChange={(e) => setGame(e.target.value as Game)}
-                className="field-control appearance-none pr-10"
+                type="button"
+                className="field-control flex items-center justify-between pr-3 text-left"
+                aria-haspopup="listbox"
+                aria-expanded={gameMenuOpen}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setGameMenuOpen((open) => !open);
+                }}
               >
-                {GAME_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+                <span>{selected.label}</span>
+                <ChevronDown
+                  className={`h-5 w-5 text-neutral-600 transition-transform ${
+                    gameMenuOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
 
-              {/* chevron */}
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-                <svg width="18" height="18" viewBox="0 0 24 24" className="text-neutral-600">
-                  <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
+              {gameMenuOpen && (
+                <div
+                  role="listbox"
+                  aria-label="Game format"
+                  className="absolute left-0 right-0 top-full z-40 mt-2 overflow-hidden border border-black bg-white shadow-[8px_8px_0_#111]"
+                >
+                  {GAME_OPTIONS.map((opt) => {
+                    const active = opt.value === game;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        role="option"
+                        aria-selected={active}
+                        className={`flex w-full items-center gap-3 border-b border-neutral-200 px-4 py-3 text-left font-semibold text-black transition last:border-b-0 hover:bg-neutral-100 ${
+                          active ? 'text-[#b21f2d]' : ''
+                        }`}
+                        onClick={() => {
+                          setGame(opt.value);
+                          setGameMenuOpen(false);
+                        }}
+                      >
+                        <Check className={`h-4 w-4 ${active ? 'opacity-100' : 'opacity-0'}`} />
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>

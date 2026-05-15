@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, Home } from "lucide-react";
+import { ChevronDown, Home } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { isSignedIn, clearAuth, getAuth } from "../utils/auth";
 
@@ -75,9 +75,10 @@ export default function Header() {
   return (
     <header
       ref={containerRef}
-      className="sticky top-0 z-50 border-b border-black bg-white/95 backdrop-blur"
+      className="site-header"
     >
-      <div className="mx-auto flex h-16 w-full items-center justify-end px-4">
+      <div className="site-header-safe-fill" aria-hidden="true" />
+      <div className="relative z-[51] mx-auto flex h-16 w-full items-center justify-end px-4">
         {/* Desktop nav - pinned right */}
         <nav className="hidden md:flex items-center gap-6">
           <Link
@@ -151,57 +152,64 @@ export default function Header() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex items-center gap-2 border border-black p-2 text-black transition hover:text-[#b21f2d]"
-          aria-label="Open menu"
+          className="hamburger-button md:hidden"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
           onClick={(e) => {
             e.stopPropagation();
             setMobileOpen((v) => !v);
           }}
         >
-          <Menu className="h-5 w-5" />
+          <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+          <span
+            className={`hamburger-line ${
+              mobileOpen ? "translate-y-[7px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`hamburger-line ${mobileOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`hamburger-line ${
+              mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+            }`}
+          />
         </button>
       </div>
 
       {/* Mobile sheet */}
       {mobileOpen && (
-        <div className="md:hidden">
-          <div className="flex justify-end border-t border-black bg-white">
-            <nav className="px-4 py-3 text-right">
-              <div className="mt-2">
-                <div className="px-3 pb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#b21f2d]">
-                  {MENU_LABEL}
-                </div>
-                <ul className="space-y-1">
-                  {MENU_ITEMS.length === 0 && (
-                    <li className="px-3 py-2 text-sm text-neutral-500">
-                      No links yet — add some!
-                    </li>
-                  )}
-                    {items.map((item) => (
-                      <li key={item.label}>
-                        {item.onClick ? (
-                          <button
-                            type="button"
-                            className="block w-full border border-transparent px-3 py-2 text-right font-semibold text-black transition hover:border-black hover:text-[#b21f2d]"
-                            onClick={item.onClick}
-                          >
-                            {item.label}
-                          </button>
-                        ) : (
-                          <Link
-                            to={item.href!}
-                            className="block border border-transparent px-3 py-2 font-semibold text-black transition hover:border-black hover:text-[#b21f2d]"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {item.label}
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                </ul>
+        <div className="absolute right-4 top-full z-[51] mt-2 w-56 overflow-hidden border border-black bg-white shadow-[8px_8px_0_#111] md:hidden">
+          <nav className="text-right">
+            {MENU_ITEMS.length === 0 && (
+              <div className="px-4 py-3 text-sm text-neutral-500">
+                No links yet — add some!
               </div>
-            </nav>
-          </div>
+            )}
+            <ul className="py-1">
+              {items.map((item) => (
+                <li key={item.label}>
+                  {item.onClick ? (
+                    <button
+                      type="button"
+                      className="block w-full border-b border-neutral-200 px-4 py-3 text-right text-sm font-semibold text-black transition last:border-b-0 hover:bg-neutral-100 hover:text-[#b21f2d]"
+                      onClick={item.onClick}
+                    >
+                      {item.label}
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.href!}
+                      className="block border-b border-neutral-200 px-4 py-3 text-sm font-semibold text-black transition last:border-b-0 hover:bg-neutral-100 hover:text-[#b21f2d]"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </header>

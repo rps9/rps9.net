@@ -36,10 +36,12 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
   const pointsFor = (cell: Cell, m: Mult) => (cell === 'BULL' ? (m === 2 ? 50 : 25) : (cell as number) * m);
   const isDoublePick = (cell: Cell, m: Mult) => (cell === 'BULL' ? m === 2 : m === 2);
   const keyFor = (cell: Cell) => (cell === 'BULL' ? 'BULL' : String(cell));
+  const isUnavailableCell = (cell: Cell): boolean => cell === 'BULL' && mult === 3;
 
   // Disable rules for double-in / double-out and busts
   const isDisabledCell = (cell: Cell): boolean => {
     if (disabled) return true;
+    if (isUnavailableCell(cell)) return true;
     const pts = pointsFor(cell, mult);
     const dbl = isDoublePick(cell, mult);
     const next = currentScore - pts;
@@ -121,8 +123,18 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
             <div key={rIdx} className="grid grid-cols-7">
               {row.map((cell) => {
                 const k = keyFor(cell);
+                const unavailable = isUnavailableCell(cell);
                 const cellDisabled = isDisabledCell(cell);
                 const isFlashing = flash === k;
+                if (unavailable) {
+                  return (
+                    <div
+                      key={k}
+                      aria-hidden="true"
+                      className="relative border-r border-black bg-neutral-100 px-1 py-3 last:border-r-0 sm:px-2"
+                    />
+                  );
+                }
                 return (
                   <button
                     key={k}
@@ -130,7 +142,7 @@ export default function X01ScoreKeeper({ onScore, onMiss, onUndo, disabled = fal
                     onTouchEnd={(e) => (e.currentTarget as HTMLButtonElement).blur()}
                     disabled={cellDisabled}
                     aria-disabled={cellDisabled}
-                    className={`relative border-r border-black px-2 py-3 text-center font-bold text-black transition-colors last:border-r-0
+                    className={`relative min-w-0 border-r border-black px-1 py-3 text-center text-xs font-bold text-black transition-colors last:border-r-0 sm:px-2 sm:text-base
                                 ${cellDisabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-neutral-100'}
                                 ${isFlashing ? 'ring-2 ring-blue-600 ring-inset bg-blue-50' : ''}
                                 focus:outline-none`}

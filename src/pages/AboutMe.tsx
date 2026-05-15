@@ -9,7 +9,7 @@ export default function AboutMe() {
     return (
     <div className="site-shell">
     <Header />
-        <section className="site-section min-h-[calc(100svh-4rem)]">
+        <section className="site-section min-h-[calc(100vh-4rem)]">
             <div className="site-container">
                 <h1 className="editorial-title mb-8">
                     About <span className="text-[#b21f2d]">Me</span>

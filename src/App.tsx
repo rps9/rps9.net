@@ -15,6 +15,7 @@ import ScrollToTop from "./components/ScrollToTop";
 const PAGE_CANVAS = '#f6f3ed';
 const HEADER_CANVAS = '#ffffff';
 const FOOTER_CANVAS = '#000000';
+const STATUS_BAR_CANVAS = HEADER_CANVAS;
 
 function useOverscrollCanvas() {
   const location = useLocation();
@@ -39,8 +40,11 @@ function useOverscrollCanvas() {
             ? FOOTER_CANVAS
             : PAGE_CANVAS;
 
-      document.documentElement.style.backgroundColor = color;
+      document.documentElement.style.backgroundColor = STATUS_BAR_CANVAS;
       document.body.style.backgroundColor = color;
+
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeMeta) themeMeta.setAttribute('content', STATUS_BAR_CANVAS);
     };
 
     const scheduleCanvasUpdate = () => {
@@ -56,8 +60,10 @@ function useOverscrollCanvas() {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', scheduleCanvasUpdate);
       window.removeEventListener('resize', scheduleCanvasUpdate);
-      document.documentElement.style.backgroundColor = PAGE_CANVAS;
+      document.documentElement.style.backgroundColor = STATUS_BAR_CANVAS;
       document.body.style.backgroundColor = PAGE_CANVAS;
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeMeta) themeMeta.setAttribute('content', STATUS_BAR_CANVAS);
     };
   }, [location.pathname]);
 }

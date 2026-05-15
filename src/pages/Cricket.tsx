@@ -218,7 +218,7 @@ export default function Cricket() {
   return (
     <div className="site-shell">
       <Header />
-      <section className="site-section-tight min-h-[calc(100svh-4rem)]">
+      <section className="site-section-tight min-h-[calc(100vh-4rem)]">
         <div className="w-full max-w-6xl mx-auto">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="space-y-2">
@@ -340,7 +340,7 @@ export default function Cricket() {
                           key={`${m}-${target}`}
                           onClick={() => registerThrow(target, m)}
                           disabled={disabled}
-                          className="px-2 py-3 text-center font-bold text-black hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-40"
+                          className="min-w-0 px-1 py-3 text-center text-xs font-bold text-black hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-40 sm:px-2 sm:text-base"
                         >
                           {label}
                         </button>

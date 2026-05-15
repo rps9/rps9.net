@@ -180,7 +180,7 @@ export default function Resume() {
       `}</style>
 
       <Header />
-      <main className="flex min-h-[calc(100svh-4rem)] flex-col px-2 py-4">
+      <main className="flex min-h-[calc(100vh-4rem)] flex-col px-2 py-4">
         <div className="mx-auto mb-4 flex w-full max-w-[816px] items-center justify-between border-b border-black pb-3">
           <div>
             <p className="editorial-kicker mb-1">Resume</p>
