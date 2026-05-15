@@ -70,7 +70,7 @@ function Home() {
       </section>
 
       {/* Experience Section */}
-      <section className="site-section" id="experience">
+      <section className="site-section anchor-section" id="experience">
         <div className="site-container">
           <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>

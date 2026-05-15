@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function Slideshow({ slides }: Props) {
-    const autoIntervalMs = 5000; // Change slide automatically every 5 seconds
+    const autoIntervalMs = 6000;
 	const [idx, setIdx] = useState(0);
 	const timerRef = useRef<number | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +32,6 @@ export default function Slideshow({ slides }: Props) {
 		return () => window.removeEventListener("keydown", onKey);
 	}, [next, prev]);
 
-	// Move to next slide after time
 	useEffect(() => {
 		if (!autoIntervalMs) return;
 		if (timerRef.current) window.clearInterval(timerRef.current);
@@ -42,7 +41,6 @@ export default function Slideshow({ slides }: Props) {
 		};
 	}, [next, autoIntervalMs]);
 
-	// Basic 
 	useEffect(() => {
 		const el = containerRef.current;
 		if (!el) return;
@@ -78,25 +76,37 @@ export default function Slideshow({ slides }: Props) {
 	return (
 		<div
 			ref={containerRef}
-			className="relative mx-auto my-10 w-full max-w-4xl overflow-hidden border border-black bg-white"
+			className="relative mx-auto w-full max-w-4xl overflow-hidden border border-black bg-white"
 			aria-roledescription="carousel"
 		>
-			{/* Image */}
-			<div className="relative">
-				<img
-					src={slides[idx].src}
-					className="w-full h-80 md:h-[32rem] object-cover"
-					loading="lazy"
-				/>
-				{/* Caption */}
-				{slides[idx].caption && (
-					<div className="absolute bottom-0 left-0 border-r border-t border-black bg-white px-4 py-3">
-						<p className="text-sm font-bold uppercase tracking-wide text-black md:text-base">{slides[idx].caption}</p>
-					</div>
-				)}
+			<div className="relative h-72 overflow-hidden sm:h-80 md:h-[32rem]">
+				<div
+					className="flex h-full transition-transform duration-500 ease-out"
+					style={{ transform: `translateX(-${idx * 100}%)` }}
+				>
+					{slides.map((slide, i) => (
+						<figure
+							key={slide.caption ?? slide.src}
+							className="relative h-full w-full shrink-0"
+							aria-hidden={i !== idx}
+						>
+							<img
+								src={slide.src}
+								alt={slide.caption ?? ''}
+								className="h-full w-full object-cover"
+								loading={i === 0 ? 'eager' : 'lazy'}
+								decoding="async"
+							/>
+							{slide.caption && (
+								<figcaption className="absolute bottom-0 left-0 border-r border-t border-black bg-white px-4 py-3">
+									<p className="text-sm font-bold uppercase tracking-wide text-black md:text-base">{slide.caption}</p>
+								</figcaption>
+							)}
+						</figure>
+					))}
+				</div>
 			</div>
 
-			{/* Back and forth controls */}
 			<button
 				type="button"
 				onClick={prev}
@@ -114,7 +124,6 @@ export default function Slideshow({ slides }: Props) {
 				<ChevronRight />
 			</button>
 
-			{/* Navigation dots at the bottom */}
 			<div className="flex items-center justify-center gap-2 border-t border-black bg-white py-3">
 				{slides.map((_, i) => (
 					<button

@@ -64,6 +64,10 @@ body {
     @apply border-b border-black px-4 py-10 md:py-14;
   }
 
+  .anchor-section {
+    scroll-margin-top: calc(2rem + env(safe-area-inset-top, 0px));
+  }
+
   .site-container {
     @apply mx-auto w-full min-w-0 max-w-6xl;
   }
