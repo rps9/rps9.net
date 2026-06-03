@@ -1,0 +1,253 @@
+might include this formally in the website later
+
+# History
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history
+setopt extended_history
+setopt share_history
+setopt inc_append_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+
+# Shell behavior
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt interactive_comments
+setopt prompt_subst
+unsetopt beep
+
+# Basic colors for macOS ls.
+export CLICOLOR=1
+# Approximate the completion menu palette for native macOS ls:
+# directories cyan, symlinks purple, executables green, special files yellow.
+export LSCOLORS="GxFxCxDxCxDxDxabafacadAx"
+
+# Keep user-local commands available when present.
+path=("$HOME/.local/bin" $path)
+typeset -U path PATH
+export PATH
+
+# Completion
+zmodload zsh/complist 2>/dev/null
+typeset -g ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR" 2>/dev/null
+autoload -Uz compinit
+if [[ -d "$ZSH_CACHE_DIR" ]]; then
+  compinit -d "$ZSH_CACHE_DIR/.zcompdump"
+else
+  compinit
+fi
+setopt auto_list
+setopt auto_menu
+setopt complete_in_word
+setopt always_to_end
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' matcher-list \
+  'm:{a-zA-Z}={A-Za-z}' \
+  'm:{a-zA-Z}={A-Za-z} r:|[._-]=* r:|=*'
+zstyle ':completion:*' list-colors \
+  'di=38;5;75' \
+  'ln=38;5;141' \
+  'ex=38;5;114' \
+  'fi=38;5;250'
+zstyle ':completion:*:descriptions' format '%F{75}-- %d --%f'
+zstyle ':completion:*:corrections' format '%F{178}-- did you mean: %d --%f'
+zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*' group-name ''
+bindkey '^I' complete-word
+
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
+
+# Native history prediction. Press Ctrl-X Ctrl-P to turn it on, Ctrl-X Ctrl-O to turn it off.
+if autoload -Uz predict-on 2>/dev/null; then
+  zle -N predict-on
+  zle -N predict-off
+  bindkey '^X^P' predict-on
+  bindkey '^X^O' predict-off
+fi
+
+# Prompt: Powerlevel10k-classic inspired style without external themes.
+autoload -Uz colors
+colors
+zmodload zsh/datetime 2>/dev/null
+
+typeset -g __prompt_left=""
+typeset -g __prompt_right=""
+typeset -g __prompt_char="%F{76}❯%f"
+typeset -g __prompt_started_at=0
+
+__prompt_segment() {
+  local bg="$1" fg="$2" text="$3" start="$4"
+
+  if [[ "$start" == "start" ]]; then
+    print -nr -- "%F{$bg}%f"
+  else
+    print -nr -- "%K{$bg}%F{246}  %f"
+  fi
+  print -nr -- "%K{$bg}%F{$fg} ${text} %f%k"
+}
+
+__prompt_fg() {
+  print -nr -- "%{"$'\e'"[38;5;${1}m%}"
+}
+
+__prompt_bg() {
+  print -nr -- "%{"$'\e'"[48;5;${1}m%}"
+}
+
+__prompt_title() {
+  local title="${1//$'\e'/}"
+  title="${title//$'\a'/}"
+  print -rn -- $'\e]0;'"$title"$'\a'
+}
+
+__prompt_path_segments() {
+  local target_bg="$1"
+  local connect_to_segment="$2"
+  local display="${PWD/#$HOME/~}"
+  local part result bg fg prev_bg
+  local parts=()
+  local clean_parts=()
+  local path_bgs=(204 209 220 114 75 141)
+  local path_fgs=(255 16 16 16 255 255)
+
+  parts=("${(@s:/:)display}")
+  for part in "${parts[@]}"; do
+    [[ -n "$part" ]] && clean_parts+=("$part")
+  done
+
+  if [[ "$display" == "/" ]]; then
+    clean_parts=("/")
+  elif [[ "$display" == /* ]]; then
+    clean_parts=("/" "${clean_parts[@]}")
+  fi
+
+  if (( ${#clean_parts} > 5 )); then
+    clean_parts=("${clean_parts[1]}" "..." "${clean_parts[@]: -3}")
+  fi
+
+  for (( i = 1; i <= ${#clean_parts}; i++ )); do
+    bg="${path_bgs[$(((i - 1) % ${#path_bgs} + 1))]}"
+    fg="${path_fgs[$(((i - 1) % ${#path_fgs} + 1))]}"
+
+    if (( i == 1 )); then
+      result+="$(__prompt_bg "$bg")$(__prompt_fg 238)%f"
+    else
+      result+="$(__prompt_bg "$bg")$(__prompt_fg "$prev_bg")%f"
+    fi
+
+    result+="$(__prompt_bg "$bg")$(__prompt_fg "$fg") ${clean_parts[$i]} %f%k"
+    prev_bg="$bg"
+  done
+
+  if [[ -n "$connect_to_segment" ]]; then
+    result+="$(__prompt_bg "$target_bg")$(__prompt_fg "$bg")%f"
+  else
+    result+="$(__prompt_fg "$bg")%f"
+  fi
+
+  print -r -- "$result"
+}
+
+__prompt_git() {
+  command git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+  [[ "$PWD" == "$HOME" ]] && return
+
+  local branch ahead behind staged unstaged untracked conflicted state
+  branch="$(command git symbolic-ref --quiet --short HEAD 2>/dev/null || command git rev-parse --short HEAD 2>/dev/null)"
+  (( ${#branch} > 32 )) && branch="${branch[1,12]}...${branch[-12,-1]}"
+
+  ahead="$(command git rev-list --count @{upstream}..HEAD 2>/dev/null)"
+  behind="$(command git rev-list --count HEAD..@{upstream} 2>/dev/null)"
+  staged="$(command git diff --cached --name-only --diff-filter=ACMR 2>/dev/null | wc -l | tr -d ' ')"
+  unstaged="$(command git diff --name-only --diff-filter=ACMR 2>/dev/null | wc -l | tr -d ' ')"
+  untracked="$(command git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')"
+  conflicted="$(command git diff --name-only --diff-filter=U 2>/dev/null | wc -l | tr -d ' ')"
+
+  state="%F{76} ${branch}%f"
+  [[ "${behind:-0}" != 0 ]] && state+=" %F{76}⇣${behind}%f"
+  [[ "${ahead:-0}" != 0 ]] && state+=" %F{76}⇡${ahead}%f"
+  [[ "${conflicted:-0}" != 0 ]] && state+=" %F{196}~${conflicted}%f"
+  [[ "${staged:-0}" != 0 ]] && state+=" %F{178}+${staged}%f"
+  [[ "${unstaged:-0}" != 0 ]] && state+=" %F{178}!${unstaged}%f"
+  [[ "${untracked:-0}" != 0 ]] && state+=" %F{39}?${untracked}%f"
+
+  print -r -- "$state"
+}
+
+__prompt_right_parts() {
+  local parts=()
+
+  if [[ "$1" != 0 ]]; then
+    parts+=("%F{160}✘ $1%f")
+  fi
+
+  [[ -n "$2" ]] && parts+=("%F{101}took $2%f")
+  (( ${#jobstates} > 0 )) && parts+=("%F{178}jobs ${#jobstates}%f")
+  [[ -n "$CONDA_DEFAULT_ENV" ]] && parts+=("%F{37}conda ${CONDA_DEFAULT_ENV}%f")
+  [[ -n "$VIRTUAL_ENV" ]] && parts+=("%F{37}venv ${VIRTUAL_ENV:t}%f")
+
+  print -r -- "${(j:    :)parts}"
+}
+
+preexec() {
+  __prompt_started_at="${EPOCHREALTIME:-0}"
+  __prompt_title "$1"
+}
+
+precmd() {
+  local exit_code=$?
+  local duration=""
+  local left_bg=238
+  local git_segment
+
+  if [[ "$__prompt_started_at" != 0 && -n "$EPOCHREALTIME" ]]; then
+    local elapsed=$(( EPOCHREALTIME - __prompt_started_at ))
+    if (( elapsed >= 3 )); then
+      duration="$(printf '%.0fs' "$elapsed")"
+    fi
+  fi
+  __prompt_started_at=0
+
+  __prompt_left="%F{242}╭─%f"
+  __prompt_left+="$(__prompt_segment "$left_bg" 255 "" start)"
+  git_segment="$(__prompt_git)"
+  __prompt_left+="$(__prompt_path_segments "$left_bg" "$git_segment")"
+  if [[ -n "$git_segment" ]]; then
+    __prompt_left+="%K{$left_bg}%F{76} ${git_segment} %f%k"
+    __prompt_left+="%F{$left_bg}%f"
+  fi
+
+  __prompt_right="$(__prompt_right_parts "$exit_code" "$duration")"
+  if (( exit_code == 0 )); then
+    __prompt_char="%F{76}❯%f"
+  else
+    __prompt_char="%F{196}❯%f"
+  fi
+  __prompt_title "${PWD/#$HOME/~}"
+}
+
+PROMPT=$'
+${__prompt_left}
+%F{242}╰─%f ${__prompt_char} '
+RPROMPT='${__prompt_right}'
+
+# Aliases
+alias ls='ls -GF'
+alias ll='ls -lahGF'
+alias la='ls -AGF'
+alias l='ls -CFG'
