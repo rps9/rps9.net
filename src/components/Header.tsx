@@ -11,6 +11,7 @@ const MENU_LABEL = "Explore";
 const DEFAULT_MENU: NavItem[] = [{ label: "Sign In", href: "/sign-in" }, { label: "About Me", href: "/about-me" }, { label: "Resume", href: "/resume" }, { label: "Darts", href: "/darts" }];
 const ADMIN_MENU: NavItem[] = [{label: "Song Recs", href:"/song-recs"}]
 const OWNER_MENU: NavItem[] = [{label: "Owner Controls", href:"/owner-controls"}]
+const SIGNED_IN_MENU: NavItem[] = [{ label: "Recipe Studio", href: "/recipes" }]
 
 
 export default function Header() {
@@ -43,7 +44,7 @@ export default function Header() {
     role === "admin" ? ADMIN_MENU :
     [];
 
-  const MENU_ITEMS = [...DEFAULT_MENU, ...roleItems];
+  const MENU_ITEMS = [...DEFAULT_MENU, ...(signedIn ? SIGNED_IN_MENU : []), ...roleItems];
 
   const items: NavItem[] = signedIn
       ? MENU_ITEMS.map(i =>
