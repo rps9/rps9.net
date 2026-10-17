@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import SongRecommendations from './pages/SongRecommendations'
 import OwnerControls from './pages/OwnerControls'
+import Recipes from './pages/Recipes'
 import ScrollToTop from "./components/ScrollToTop";
 
 const PAGE_CANVAS = '#f6f3ed';
@@ -85,6 +86,7 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/song-recs" element={<SongRecommendations />} />
         <Route path="/owner-controls" element={<OwnerControls />} />
+        <Route path="/recipes" element={<Recipes />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>
