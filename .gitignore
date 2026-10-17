@@ -23,3 +23,7 @@ pnpm-debug.log*
 # Test coverage
 coverage/
 .nyc_output/
+*.tsbuildinfo
+playwright-report/
+test-results/
+__pycache__/

@@ -1,0 +1,11 @@
+[Unit]
+Description=Check GitHub for a tested website release every five minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitInactiveSec=5min
+RandomizedDelaySec=20s
+Unit=rps9-site-deploy.service
+
+[Install]
+WantedBy=timers.target

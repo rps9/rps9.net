@@ -1,0 +1,76 @@
+name: Website CI and deployment
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Website checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: python3 -m unittest discover -s tests/deploy -v
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Package tested build
+        run: |
+          printf '%s\n' "$GITHUB_SHA" > dist/version.txt
+          tar -czf website.tar.gz -C dist .
+          sha256sum website.tar.gz > website.tar.gz.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: |
+            website.tar.gz
+            website.tar.gz.sha256
+          retention-days: 7
+
+  publish:
+    name: Publish deployment
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: website-build
+      - name: Publish complete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag="deploy-$GITHUB_SHA"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            if [ "$(gh release view "$tag" --json isDraft --jq .isDraft)" = false ]; then
+              echo 'This commit already has a deployment release.'
+              exit 0
+            fi
+            gh release delete "$tag" --yes
+          fi
+          gh release create "$tag" website.tar.gz website.tar.gz.sha256 \
+            --target "$GITHUB_SHA" --title "Website $GITHUB_SHA" \
+            --notes "Tested production build from Actions run $GITHUB_RUN_ID." \
+            --prerelease --draft
+          gh release edit "$tag" --draft=false

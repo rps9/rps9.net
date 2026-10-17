@@ -1,0 +1,18 @@
+[Unit]
+Description=Deploy a tested rps9.net release from GitHub
+After=network-online.target nginx.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=website-deploy
+Group=website-deploy
+UMask=0022
+ExecStart=/usr/bin/python3 /usr/local/lib/rps9-site-deploy/deploy.py --config /etc/rps9-site-deploy.json
+TimeoutStartSec=10min
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/www/rps9-releases
+
